@@ -38,8 +38,11 @@ VArenaAlloc::~VArenaAlloc() {
 }
 
 void VArenaAlloc::reset() {
+    char* firstBlock = fFirstBlock;
+    uint32_t firstSize = fFirstSize;
+    uint32_t firstHeapAllocationSize = fFirstHeapAllocationSize;
     this->~VArenaAlloc();
-    new (this) VArenaAlloc{fFirstBlock, fFirstSize, fFirstHeapAllocationSize};
+    new (this) VArenaAlloc{firstBlock, firstSize, firstHeapAllocationSize};
 }
 
 void VArenaAlloc::installFooter(FooterAction* action, uint32_t padding) {
